@@ -1,6 +1,6 @@
 import {
     ADD_CONTACTS_ERROR,
-    ADD_CONTACTS_SUCCESS, CHANGE_CONTACT_ERROR, CHANGE_CONTACT_SUCCESS,
+    ADD_CONTACTS_SUCCESS, CHANGE_CONTACT_ERROR, CHANGE_CONTACT_SUCCESS, DELETE_CONTACT_ERROR, DELETE_CONTACT_SUCCESS,
     GET_CONTACTS_ERROR,
     GET_CONTACTS_SUCCESS
 } from "../actions/actionTypes";
@@ -22,6 +22,10 @@ const contactsReducer = (state = initialState, action) => {
         case CHANGE_CONTACT_SUCCESS:
             return {...state};
         case CHANGE_CONTACT_ERROR:
+            return {...state};
+        case DELETE_CONTACT_SUCCESS:
+            return {...state};
+        case DELETE_CONTACT_ERROR:
             return {...state};
         default:
             return state

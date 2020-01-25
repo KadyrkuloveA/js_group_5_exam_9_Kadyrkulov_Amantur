@@ -2,7 +2,7 @@ import axiosContacts from "../../axios-contacts";
 import {
     ADD_CONTACTS_ERROR,
     ADD_CONTACTS_SUCCESS, CHANGE_CONTACT_ERROR,
-    CHANGE_CONTACT_SUCCESS,
+    CHANGE_CONTACT_SUCCESS, DELETE_CONTACT_ERROR, DELETE_CONTACT_SUCCESS,
     GET_CONTACTS_ERROR,
     GET_CONTACTS_SUCCESS
 } from "./actionTypes";
@@ -15,6 +15,9 @@ const getContactsError = () => ({type: GET_CONTACTS_ERROR});
 
 const changeContactSuccess = () => ({type: CHANGE_CONTACT_SUCCESS});
 const changeContactError = () => ({type: CHANGE_CONTACT_ERROR});
+
+const deleteContactSuccess = () => ({type: DELETE_CONTACT_SUCCESS});
+const deleteContactError = () => ({type: DELETE_CONTACT_ERROR});
 
 export const addContact = contact => {
     return async dispatch => {
@@ -50,3 +53,15 @@ export const editContact = (id, contact) => {
         }
     }
 };
+
+export const deleteContact = (id) => {
+    return async dispatch => {
+        try{
+            await axiosContacts.delete('/contacts/' + id + '.json');
+            dispatch(deleteContactSuccess());
+        } catch (e) {
+            dispatch(deleteContactError());
+        }
+    }
+};
+

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getContacts} from "../../store/actions/actionContacts";
+import {deleteContact, getContacts} from "../../store/actions/actionContacts";
 import {connect} from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -27,6 +27,12 @@ const Contacts = (props) => {
     const editContact = (id) => {
         const editLink = '/contact/' + id + '/edit';
         props.history.push(editLink);
+    };
+
+    const deleteContact = async (id) => {
+        await props.deleteContact(id);
+        props.getContacts();
+        toggle();
     };
 
     return (
@@ -59,7 +65,7 @@ const Contacts = (props) => {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={() => editContact(contactId)}>Edit</Button>{' '}
-                    <Button color="danger" onClick={toggle}>Delete</Button>
+                    <Button color="danger" onClick={() => deleteContact(contactId)}>Delete</Button>
                 </ModalFooter>
             </Modal>
         </div>
@@ -72,7 +78,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getContacts: () => dispatch(getContacts())
+    getContacts: () => dispatch(getContacts()),
+    deleteContact: (id) => dispatch(deleteContact(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
